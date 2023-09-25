@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect to Google Drive</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Center align vertically */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        #download-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #download-button {
+            position: relative;
+            background: linear-gradient(45deg, #FF0000, #0000FF);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+        }
+
+        #download-button:hover {
+            background: linear-gradient(45deg, #0000FF, #FF0000);
+        }
+
+        .hand-sign {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        #progress-container {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            margin-top: 10px;
+        }
+
+        #progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #FF0000, #0000FF); /* Updated gradient */
+            transition: width 3s ease; /* Changed duration to 3 seconds */
+            border-radius: 20px; /* Added border radius */
+        }
+
+        #progress-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #progress-percentage {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        #percentage-counter {
+            color: #fff;
+            font-size: 16px;
+            margin-top: 15px; /* Adjust margin as needed */
+        }
+
+        #merch-name {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        #copyright {
+            position: absolute;
+            bottom: 10px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="download-button-container">
+        <button id="download-button">
+            <img class="hand-sign" src="hand-sign.svg" alt="Hand Sign">
+            <span>Click This to Download File</span>
+        </button>
+        <div id="progress-container">
+            <div id="progress-bar"></div>
+            <div id="progress-message">
+                <span id="progress-percentage">0%</span>
+            </div>
+        </div>
+        <div id="percentage-counter">0%</div>
+    </div>
+    <div id="copyright">&copy; 2023 Mertch. All Rights Reserved.</div>
+
+    <script>
+        const button = document.getElementById("download-button");
+        const progressBar = document.getElementById("progress-bar");
+        const progressMessage = document.getElementById("progress-message");
+        const progressPercentage = document.getElementById("progress-percentage");
+        const percentageCounter = document.getElementById("percentage-counter");
+
+        button.addEventListener("click", () => {
+            progressBar.style.width = "0";
+            progressMessage.style.display = "block";
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                const percentage = (progress / 5) * 100;
+                progressBar.style.width = `${percentage}%`;
+                progressPercentage.textContent = `${Math.round(percentage)}%`;
+                percentageCounter.textContent = `${Math.round(percentage)}%`;
+
+                if (progress >= 5) {
+                    clearInterval(interval);
+                    window.location.href = "https://drive.google.com/file/d/19CHRSU3G3pBWZ7Nb8XRuTTFJq5DMjaNc/view?usp=sharing";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
